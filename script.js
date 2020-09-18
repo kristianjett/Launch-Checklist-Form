@@ -33,6 +33,7 @@ window.addEventListener("load", function(){
 
    let form = document.getElementById("launchForm");
    form.addEventListener("submit", function(){
+      event.preventDefault();
       let pilotNameInput = document.querySelector("input[name=pilotName]");
       let copilotNameInput = document.querySelector("input[name=copilotName]");
       let fuelLevelInput = document.querySelector("input[name=fuelLevel]");
@@ -40,12 +41,10 @@ window.addEventListener("load", function(){
 
       if (pilotNameInput.value === "" || copilotNameInput.value === "" || fuelLevelInput.value === "" || cargoMassInput.value === ""){
          alert("All fields are required!");
-         event.preventDefault();
       }
       
       if  (isNaN(Number(fuelLevelInput.value)) || isNaN(Number(cargoMassInput.value))){
          alert("Fuel Level and Cargo Mass must be valid numbers");
-         event.preventDefault();
       }
 
       document.getElementById("pilotStatus").innerHTML = `${pilotNameInput.value} is ready for launch.`;
@@ -62,8 +61,6 @@ window.addEventListener("load", function(){
          updateFuelStatus.innerHTML = "Not enough fuel for the journey!";
          updateLaunchStatus.innerHTML = "Shuttle not ready for launch!" ;
          updateLaunchStatus.style.color = "red";
-         
-         event.preventDefault();
       } 
 
       if (Number(cargoMassInput.value) > 10000){
@@ -75,8 +72,6 @@ window.addEventListener("load", function(){
          updateCargoStatus.innerHTML = "Too much mass for take off!";
          updateLaunchStatus.innerHTML = "Shuttle not ready for launch!" ;
          updateLaunchStatus.style.color = "red";
-         
-         event.preventDefault();
       } 
 
       else {
@@ -85,8 +80,6 @@ window.addEventListener("load", function(){
 
             updateLaunchStatus.innerHTML = "Shuttle is ready for launch.";
             updateLaunchStatus.style.color = "green"
-
-            event.preventDefault();
          }
       }
    });
