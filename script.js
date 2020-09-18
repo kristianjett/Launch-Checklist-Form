@@ -32,7 +32,7 @@ window.addEventListener("load", function(){
    });
 
    let form = document.getElementById("launchForm");
-   form.addEventListener("submit", function(){
+   form.addEventListener("submit", function(event){
       event.preventDefault();
       let pilotNameInput = document.querySelector("input[name=pilotName]");
       let copilotNameInput = document.querySelector("input[name=copilotName]");
