@@ -34,6 +34,7 @@ window.addEventListener("load", function(){
    let form = document.getElementById("launchForm");
    form.addEventListener("submit", function(event){
       event.preventDefault();
+
       let pilotNameInput = document.querySelector("input[name=pilotName]");
       let copilotNameInput = document.querySelector("input[name=copilotName]");
       let fuelLevelInput = document.querySelector("input[name=fuelLevel]");
@@ -41,6 +42,7 @@ window.addEventListener("load", function(){
 
       if (pilotNameInput.value === "" || copilotNameInput.value === "" || fuelLevelInput.value === "" || cargoMassInput.value === ""){
          alert("All fields are required!");
+         return false;
       }
       
       if  (isNaN(Number(fuelLevelInput.value)) || isNaN(Number(cargoMassInput.value))){
@@ -61,7 +63,12 @@ window.addEventListener("load", function(){
          updateFuelStatus.innerHTML = "Not enough fuel for the journey!";
          updateLaunchStatus.innerHTML = "Shuttle not ready for launch!" ;
          updateLaunchStatus.style.color = "red";
-      } 
+      }
+      
+      if (Number(fuelLevelInput.value) > 10000){
+         let updateFuelStatus = document.getElementById("fuelStatus");
+         updateFuelStatus.innerHTML = "Fuel level high enough for launch!"
+      }
 
       if (Number(cargoMassInput.value) > 10000){
          let updateVisibility = document.getElementById("faultyItems");
@@ -72,15 +79,22 @@ window.addEventListener("load", function(){
          updateCargoStatus.innerHTML = "Too much mass for take off!";
          updateLaunchStatus.innerHTML = "Shuttle not ready for launch!" ;
          updateLaunchStatus.style.color = "red";
-      } 
-
-      else {
-         if (Number(cargoMassInput.value) < 10000 && Number(fuelLevelInput.value) > 10000){
-            let updateLaunchStatus = document.getElementById("launchStatus");
-
-            updateLaunchStatus.innerHTML = "Shuttle is ready for launch.";
-            updateLaunchStatus.style.color = "green"
-         }
       }
+      
+      if (Number(cargoMassInput.value) < 10000) {
+         let updateCargoStatus = document.getElementById("cargoStatus");
+         updateCargoStatus.innerHTML = "Cargo mass low enough for launch!"
+      }
+
+      
+      if (Number(cargoMassInput.value) < 10000 && Number(fuelLevelInput.value) > 10000){
+         let updateLaunchStatus = document.getElementById("launchStatus");
+         let updateVisibility = document.getElementById("faultyItems");
+
+         updateLaunchStatus.innerHTML = "Shuttle is ready for launch.";
+         updateLaunchStatus.style.color = "green";
+         updateVisibility.style.visibility = "hidden";
+      }
+      
    });
 });
